@@ -1,37 +1,40 @@
-/*  Structure of a Binary Tree
+/* A binary tree Node
 
-struct Node
-{
+class Node {
+public:
     int data;
-    struct Node* left;
-    struct Node* right;
+    Node* left;
+    Node* right;
 
-    Node(int x){
-        data = x;
+    Node(int val) {
+        data = val;
         left = right = NULL;
     }
 };
  */
-
 class Solution {
   public:
-    int maxWidth(Node* root) {
+    vector<vector<int>> levelOrder(Node* root) {
         // code here
+        
+        vector<vector<int>> res;
         queue<Node*> q;
-        int mw =-1;
         q.push(root);
         while(!q.empty()){
-            int ts = 0;
             int s = q.size();
+            vector<int> tmp;
             while(s--){
                 Node *front = q.front();
                 q.pop();
-                ts++;
+                tmp.push_back(front->data);
+                
                 if(front->left) q.push(front->left);
                 if(front->right) q.push(front->right);
             }
-            mw=max(mw,ts);
+            
+            res.push_back(tmp);
         }
-        return mw;
+        
+        return res;
     }
 };
